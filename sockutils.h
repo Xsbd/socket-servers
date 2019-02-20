@@ -1,5 +1,7 @@
-#ifndef UTILS_H
-#define UTILS_H
+/* header file for INET socket wrapper functions */
+
+#ifndef SOCKUTILS_H
+#define SOCKUTILS_H
 
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -31,4 +33,4 @@ int listen_inet(char* portnum);
  */
 int connect_inet(char* server, char* portnum);
 
-#endif /* UTILS_H */
+#endif /* SOCKUTILS_H */

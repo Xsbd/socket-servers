@@ -7,7 +7,8 @@ EXECUTABLES = \
 	      sequential-server \
 	      clients \
 	      threaded-server \
-	      threadpool-server
+	      threadpool-server \
+	      select-server
 
 all: $(EXECUTABLES)
 
@@ -27,6 +28,12 @@ threaded-server: sockutils.c threaded-server.c
 	$(CC) $(CFLAGS) $^ -o $@
 
 threadpool-server: sockutils.c threadpool.c threadpool-server.c
+	$(CC) $(CFLAGS) $^ -o $@
+
+select-server: sockutils.c select-server.c
+	$(CC) $(CFLAGS) $^ -o $@
+
+epoll-server: sockutils.c epoll-server.c
 	$(CC) $(CFLAGS) $^ -o $@
 
 .PHONY: clean

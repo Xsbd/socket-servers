@@ -33,4 +33,7 @@ int listen_inet(char* portnum);
  */
 int connect_inet(char* server, char* portnum);
 
+/* Sets the given socket into non-blocking mode */
+void make_socket_non_blocking(int sockfd);
+
 #endif /* SOCKUTILS_H */

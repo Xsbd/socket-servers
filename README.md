@@ -38,20 +38,35 @@
    --> handle one client at a time    
    --> impractical, long wait times for clients   
    Usage:   
-          $ ./sequential-server   
+      $ ./sequential-server   
 
   2. threaded-server.c    
    --> handle multiple clients, with one thread per client    
    --> too many threads, lame duck to DoS attack    
    Usage:   
-          $ ./threaded-server [port_num]    
+      $ ./threaded-server [port_num]    
 
   3. threadpool-server.c    
    --> use a fixed number of threads (thread-pool) to process client requests   
    --> better resource management as compared to 1 thread per client    
    Usage:   
-          $ ./threadpool-server [port_num] [num_of_threads]   
+      $ ./threadpool-server [port_num] [num_of_threads]   
 
+  4. select-server.c
+   --> select system call to enable I/O (socket) multiplexing
+   --> fcntl to make socket non blocking ==> hence asynchronous
+   --> limitations:
+        a. limited file descriptor set size (hard limit on system kernels)
+        b. poor performance due to resource wastage in finding the ready file descriptor.
+   Usage:
+      $ ./select-server [port_num]
+
+  5. epoll-server.c
+   --> epoll system call (on Linux) to handle high-volume I/O event notification
+   --> better than select as ready file descriptors are easily identified without iterating
+       the entire file descriptor set
+   Usage:
+      $ ./epoll-server [port_num]
 
 
 ##### REF

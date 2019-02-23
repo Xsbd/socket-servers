@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <fcntl.h>
 #define _GNU_SOURCE
 #include <netdb.h>
 
@@ -164,5 +165,17 @@ void connection_report(const struct sockaddr* sa, socklen_t salen) {
 		printf("peer (%s, %s) connected\n", hostbuf, portbuf);
 	} else {
 		printf("peer (unknonwn) connected\n");
+	}
+}
+
+void make_socket_non_blocking(int sockfd) {
+/* make socket non-blocking */
+	int flags = fcntl(sockfd, F_GETFL, 0);
+	if (flags == -1) {
+		perror_die("fcntl F_GETFL");
+	}
+
+	if (fcntl(sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {
+		perror_die("fcntl F_SETFL O_NONBLOCK");
 	}
 }
